@@ -1,27 +1,27 @@
 const axios = require('axios');
 
-const askChatGPT = async (question) => {
-    const apiKey = process.env.OPENAI_API_KEY;
+const askDeepSeek = async (question) => {
+    const apiKey = process.env.DEEPSEEK_API_KEY;
     try {
         const response = await axios.post(
-            'https://api.openai.com/v1/chat/completions',
+            'https://api.deepseek.com/v1/chat/completions',
             {
-                model: 'gpt-3.5-turbo',
+                model: 'deepseek-chat',
                 messages: [{ role: 'user', content: question }],
+                temperature: 0.7
             },
             {
                 headers: {
-                    'Authorization': `Bearer ${apiKey}`,
+                    Authorization: `Bearer ${apiKey}`,
                     'Content-Type': 'application/json',
                 },
             }
         );
-        console.log('OpenAI Response:', response.data);
         return response.data.choices[0].message.content;
     } catch (error) {
-        console.error('OpenAI API Error:', error.response ? error.response.data : error.message);
-        throw new Error('AI không phản hồi');
+        console.error("🔥 DeepSeek API ERROR:", error.response?.data || error.message);
+        throw new Error('AI không phản hồi từ DeepSeek');
     }
 };
 
-module.exports = { askChatGPT };
+module.exports = { askDeepSeek };

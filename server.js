@@ -25,6 +25,11 @@ app.use('/api/locations', locationRoutes);
 app.use('/api/restaurants', restaurantRoutes);
 app.use('/api/travel-agencies', travelAgencyRoutes);
 app.use('/api/residenceGuide', residenceGuide);
+app.use('/api/accommodations', );
+app.use('/api/translate', );
+app.use('/api/ratings', );
+
+
 // Khởi động server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server chạy tại http://localhost:${PORT}`));
