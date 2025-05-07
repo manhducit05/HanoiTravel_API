@@ -9,6 +9,10 @@ const locationRoutes = require('./routes/locationRoutes');
 const restaurantRoutes = require('./routes/restaurantRoutes');
 const travelAgencyRoutes = require('./routes/travelAgencyRoutes');
 const residenceGuide = require('./routes/residenceGuideRoutes')
+const authRoutes = require('./routes/auth');
+const accommodationRoutes = require('./routes/accommodationRoutes');
+const translationRoutes = require('./routes/translationRoutes');
+const ratingRoutes = require('./routes/ratingRoutes');
 dotenv.config();
 const app = express();
 
@@ -20,15 +24,16 @@ app.use(express.json());
 connectDB();
 
 // Routes
+app.use('/api/auth', authRoutes);
+
 app.use('/api/chat', aiRoutes);
 app.use('/api/locations', locationRoutes);
 app.use('/api/restaurants', restaurantRoutes);
-app.use('/api/travel-agencies', travelAgencyRoutes);
+app.use('/api/travelAgency', travelAgencyRoutes);
 app.use('/api/residenceGuide', residenceGuide);
-app.use('/api/accommodations', );
-app.use('/api/translate', );
-app.use('/api/ratings', );
-
+app.use('/api/accommodations', accommodationRoutes);
+app.use('/api/translate', translationRoutes);
+app.use('/api/ratings', ratingRoutes);
 
 // Khởi động server
 const PORT = process.env.PORT || 5000;
