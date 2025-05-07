@@ -1,13 +1,12 @@
-const { askDeepSeek } = require('../utils/openAI');
+const { askOpenRouter } = require('../utils/openRouter');
 
 const askAI = async (req, res) => {
     try {
         const { question } = req.body;
-        const response = await askDeepSeek(question);
+        const response = await askOpenRouter(question);
         res.json({ answer: response });
-    }
-    catch (error) {
-        console.error("Lỗi từ DeepSeek:", error.response?.data || error.message);
+    } catch (error) {
+        console.error("❌ Lỗi từ OpenRouter:", error.message);
         res.status(500).json({ error: 'AI không phản hồi' });
     }
 };
