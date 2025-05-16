@@ -46,6 +46,15 @@ const deleteRestaurant = async (req, res) => {
         res.status(500).json({ error: 'Xoá thất bại' });
     }
 };
+const getTopRestaurants = async (req, res) => {
+    try {
+        const restaurants = await Restaurant.find().sort({ likeCount: -1 });
+        res.json(restaurants);
+    } catch (err) {
+        console.error('❌ Error fetching top restaurants:', err.message);
+        res.status(500).json({ message: 'Server error' });
+    }
+};
 
 module.exports = {
     getAllRestaurants,
@@ -53,4 +62,5 @@ module.exports = {
     getRestaurantById,
     updateRestaurant,
     deleteRestaurant,
+    getTopRestaurants
 };

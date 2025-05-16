@@ -62,6 +62,15 @@ const deleteLocation = async (req, res) => {
         res.status(500).json({ error: 'Xoá thất bại' });
     }
 };
+const getTopLocations = async (req, res) => {
+    try {
+        const locations = await Location.find().sort({ likeCount: -1 });
+        res.json(locations);
+    } catch (err) {
+        console.error('❌ Error fetching top locations:', err.message);
+        res.status(500).json({ message: 'Server error' });
+    }
+};
 
 module.exports = {
     getAllLocations,
@@ -70,4 +79,5 @@ module.exports = {
     getLocationById,
     updateLocation,
     deleteLocation,
+    getTopLocations
 };

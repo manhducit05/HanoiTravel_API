@@ -12,7 +12,8 @@ const residenceGuide = require('./routes/residenceGuideRoutes')
 const authRoutes = require('./routes/auth');
 const accommodationRoutes = require('./routes/accommodationRoutes');
 const translationRoutes = require('./routes/translationRoutes');
-const ratingRoutes = require('./routes/ratingRoutes');
+const commentRoutes = require('./routes/commentRoutes');
+const likeRoutes = require('./routes/likeRoutes');
 dotenv.config();
 const app = express();
 
@@ -33,7 +34,8 @@ app.use('/api/travelAgency', travelAgencyRoutes);
 app.use('/api/residenceGuide', residenceGuide);
 app.use('/api/accommodations', accommodationRoutes);
 app.use('/api/translate', translationRoutes);
-app.use('/api/ratings', ratingRoutes);
+app.use('/api/comments', commentRoutes);
+app.use('/api/likes', likeRoutes);
 
 // Khởi động server
 const PORT = process.env.PORT || 5000;
