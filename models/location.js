@@ -1,5 +1,3 @@
-const mongoose = require('mongoose');
-
 const locationSchema = new mongoose.Schema({
     name: { type: String, required: true },
     type: {
@@ -9,14 +7,18 @@ const locationSchema = new mongoose.Schema({
     },
     description: { type: String },
     address: { type: String },
-    imageUrl: { type: String }, // ảnh chính
-    images: [String],           // nhiều ảnh bổ sung
+    imageUrl: { type: String },
+    images: [String],
     coordinates: {
         lat: { type: Number },
         lng: { type: Number },
     },
     likeCount: { type: Number, default: 0 },
-    dislikeCount: { type: Number, default: 0 }
+    dislikeCount: { type: Number, default: 0 },
+    comments: [
+        {
+            user: String,
+            comment: String
+        }
+    ]
 }, { timestamps: true });
-
-module.exports = mongoose.model('Location', locationSchema);

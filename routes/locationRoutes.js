@@ -7,6 +7,7 @@ const {
     getLocationById,
     updateLocation,
     deleteLocation,
+    getLocationComments,    
     getTopLocations
 } = require('../controllers/locationController');
 
@@ -17,4 +18,6 @@ router.get('/:id', getLocationById);
 router.put('/:id', updateLocation);
 router.delete('/:id', deleteLocation);
 router.get('/top-liked', getTopLocations);
+router.get('/:id/comments', getLocationComments);
+
 module.exports = router;

@@ -1,3 +1,4 @@
+const { get } = require('mongoose');
 const Location = require('../models/location');
 
 // Lấy tất cả địa danh
@@ -71,6 +72,15 @@ const getTopLocations = async (req, res) => {
         res.status(500).json({ message: 'Server error' });
     }
 };
+const getLocationComments = async (req, res) => {
+    try {
+        const location = await Location.findById(req.params.id).select('comments');
+        if (!location) return res.status(404).json({ error: 'Không tìm thấy địa điểm' });
+        res.json(location.comments);
+    } catch (error) {
+        res.status(500).json({ error: 'Lỗi khi lấy bình luận địa điểm' });
+    }
+};
 
 module.exports = {
     getAllLocations,
@@ -79,5 +89,6 @@ module.exports = {
     getLocationById,
     updateLocation,
     deleteLocation,
+    getLocationComments,
     getTopLocations
 };

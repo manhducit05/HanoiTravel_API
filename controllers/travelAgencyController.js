@@ -51,3 +51,66 @@ exports.deleteAgency = async (req, res) => {
         res.status(500).json({ error: 'Lỗi khi xóa công ty lữ hành' });
     }
 };
+// Like agency
+exports.likeAgency = async (req, res) => {
+    try {
+        const agency = await TravelAgency.findByIdAndUpdate(
+            req.params.id,
+            { $inc: { likeCount: 1 } },
+            { new: true }
+        );
+        res.json(agency);
+    } catch (error) {
+        res.status(500).json({ error: 'Lỗi khi like công ty lữ hành' });
+    }
+};
+
+// Dislike agency
+exports.dislikeAgency = async (req, res) => {
+    try {
+        const agency = await TravelAgency.findByIdAndUpdate(
+            req.params.id,
+            { $inc: { dislikeCount: 1 } },
+            { new: true }
+        );
+        res.json(agency);
+    } catch (error) {
+        res.status(500).json({ error: 'Lỗi khi dislike công ty lữ hành' });
+    }
+};
+// Thêm bình luận
+exports.commentAgency = async (req, res) => {
+    const { user, comment } = req.body;
+    try {
+        const agency = await TravelAgency.findByIdAndUpdate(
+            req.params.id,
+            { $push: { comments: { user, comment } } },
+            { new: true }
+        );
+        res.json(agency);
+    } catch (error) {
+        res.status(400).json({ error: 'Lỗi khi thêm bình luận' });
+    }
+};
+// Lấy danh sách bình luận
+exports.getAgencyComments = async (req, res) => {
+    try {
+        const agency = await TravelAgency.findById(req.params.id).select('comments');
+        if (!agency) {
+            return res.status(404).json({ error: 'Không tìm thấy công ty lữ hành' });
+        }
+        res.json(agency.comments);
+    } catch (error) {
+        res.status(500).json({ error: 'Lỗi khi lấy bình luận' });
+    }
+};
+// Lấy danh sách công ty lữ hành được thích nhiều nhất
+exports.getTopLikedAgencies = async (req, res) => {
+    try {
+        const agencies = await TravelAgency.find().sort({ likeCount: -1 });
+        res.json(agencies);
+    } catch (error) {
+        res.status(500).json({ error: 'Lỗi khi lấy danh sách công ty được thích nhiều nhất' });
+    }
+};
+

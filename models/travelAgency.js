@@ -1,4 +1,3 @@
-// models/TravelAgency.js
 const mongoose = require('mongoose');
 
 const travelAgencySchema = new mongoose.Schema({
@@ -7,13 +6,21 @@ const travelAgencySchema = new mongoose.Schema({
     phone: String,
     email: String,
     website: String,
-    rating: Number,
     description: String,
     services: [String],
     location: {
         type: { type: String, enum: ['Point'], default: 'Point' },
-        coordinates: { type: [Number], default: [0, 0] }, // [longitude, latitude]
+        coordinates: { type: [Number], default: [0, 0] },
     },
+    likeCount: { type: Number, default: 0 },
+    dislikeCount: { type: Number, default: 0 },
+    comments: [
+        {
+            user: String,
+            comment: String,
+            createdAt: { type: Date, default: Date.now }
+        }
+    ]
 }, { timestamps: true });
 
 travelAgencySchema.index({ location: '2dsphere' });
